@@ -1,0 +1,38 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "serverModule.js",
+  "scripts": {
+    "debug": "node inspect index.js",
+    "start": "nodemon index.js",
+    "jasmine": "jasmine-node --verbose",
+    "test": "jasmine-node --verbose spec/",
+    "test-integration": "jasmine-node --verbose spec/integration/",
+    "test-unit": "jasmine-node --verbose spec/unit/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "caminte": "^0.4.0",
+    "dotenv": "^4.0.0",
+    "jsonwebtoken": "^7.4.1",
+    "koa": "^2.3.0",
+    "koa-body": "^2.3.0",
+    "koa-router": "^7.2.1",
+    "mongodb": "^2.2.30",
+    "mongoose": "^4.11.1",
+    "morgan": "^1.8.2",
+    "socket.io": "^2.0.3",
+    "util.promisify": "^1.0.0"
+  },
+  "devDependencies": {
+    "frisby": "^0.8.5",
+    "jasmine-node": "^1.14.5",
+    "koa-send": "^4.1.0",
+    "nodemon": "^1.11.0",
+    "zombie": "^5.0.7"
+  }
+}
