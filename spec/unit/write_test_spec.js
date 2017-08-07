@@ -34,7 +34,7 @@ describe("Business Logic test - WRITE TEST functionality", () => {
     it("should return test string", () => {
       const expectedTestString = `describe("")`;
 
-      expect(testString)
+      expect(writeTest(path)).toBe(expectedTestString)
     })
   })
 })
