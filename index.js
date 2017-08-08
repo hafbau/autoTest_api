@@ -33,6 +33,27 @@ db.on('connected', () => {
   // set up req.body
   app.use(bodyParser());
 
+  // middleware to log requests to the console.
+  app.use(async(ctx, next) => {
+      const start = new Date();
+      await next();
+      const ms = new Date() - start;
+      console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
+  });
+
+  //error handling middleware
+  app.use(async(ctx, next) => {
+      try {
+        ctx.type = 'json';
+        await next();
+      } catch (err) {
+        ctx.status = err.status || 500;
+        ctx.body = {
+            error: err.message
+        };
+      }
+  });
+
   // attaching user to context if token checks out
   app.use(middlewares.ensureUser)
 
