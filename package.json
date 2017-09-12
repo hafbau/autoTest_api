@@ -5,7 +5,7 @@
   "main": "serverModule.js",
   "scripts": {
     "debug": "node inspect index.js",
-    "start": "node --harmony index.js",
+    "start": "node index.js",
     "test": "mocha || true"
   },
   "keywords": [],
