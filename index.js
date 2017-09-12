@@ -21,6 +21,7 @@ db.on('connected', () => {
   const controllers = require('./controllers')(models, render);
   const { combinedRoutes } = require('./routes')({controllers, middlewares, router});
 
+
   // =======================
   // END configuration =====
   // =======================
@@ -30,6 +31,9 @@ db.on('connected', () => {
   // setting up app ========
   // =======================
 
+  // cross-origin set up
+  app.use(middlewares.cors);
+  
   // set up req.body
   app.use(bodyParser());
 
@@ -47,6 +51,7 @@ db.on('connected', () => {
         ctx.type = 'json';
         await next();
       } catch (err) {
+        console.log("erro handlin", err)
         ctx.status = err.status || 500;
         ctx.body = {
             error: err.message
@@ -56,17 +61,23 @@ db.on('connected', () => {
 
   // attaching user to context if token checks out
   app.use(middlewares.ensureUser)
-
-  // set up app routes
-  app.use(combinedRoutes);
-
-  // creates http server from app, and attach the io (realtime) middleware to app,
+  
+  // putting models on ctx
+  app.use(async (ctx, next) => {
+    ctx.models = models;
+    await next();
+  })
+  
+  // creates http server from app, and attach the io (realtime) middleware to ctx,
   const { io, server } = require('./io')(app);
-
+  
+    // set up app routes
+    app.use(combinedRoutes);
+  
   // =======================
   // END setting up app ====
   // =======================
-
+  
   // TODO: remove this block post development
   io.on('connection', (socket) => {
     console.log('a user connected');
@@ -84,6 +95,6 @@ db.on('connected', () => {
   // =======================
   // start the server ======
   // =======================
-  server.listen(3000, () => console.log("listening on port 3000"));
+  server.listen(4000, () => console.log("listening on port 4000"));
 
 }) // db connected

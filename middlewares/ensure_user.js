@@ -3,6 +3,9 @@ const jwt = require('jsonwebtoken');
 module.exports = ({ userModel }) => {
   const User = userModel;
   return async (ctx, next) => {
+    // TODO: factor non-authed routes out
+    if (ctx.method === 'POST' && ['/login', '/register'].includes(ctx.path)) return next();
+
     ctx.body = ctx.body || {}
     const token = ctx.body.token || ctx.query.token || ctx.headers['x-access-token'];
 

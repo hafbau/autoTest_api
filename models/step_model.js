@@ -7,7 +7,7 @@
  **/
 
 module.exports = (schema, decorate) => {
-  const Step = schema.define('case', {
+  const Step = schema.define('step', {
     // run related
     lastPassed: {type: schema.Date},
     isPassing: {type: schema.Boolean, default: false},
@@ -33,10 +33,8 @@ module.exports = (schema, decorate) => {
 
   /* Validators */
   Step.validatesPresenceOf('caseId');
-  Step.validatesPresenceOf('name');
   Step.validatesPresenceOf('type');
   
-  Step.validatesFormatOf('name', {with: /^\S+$/, message:"is not valid"});
 
 
   // hooks

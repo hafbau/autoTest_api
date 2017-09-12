@@ -15,7 +15,7 @@ module.exports = (schema, decorate) => {
     lastActive: {type: schema.Date, default: Date.now()},
     loggedIn: {type: schema.Boolean, default: true},
     // Name related
-    username: {type: schema.String, limit: 150, index: true},
+    // username: {type: schema.String, limit: 150, index: true},
     firstName: {type: schema.String, limit: 150, index: true},
     lastName: {type: schema.String, limit: 150, index: true},
     // other options goes in meta
@@ -42,15 +42,15 @@ module.exports = (schema, decorate) => {
     if (!this.firstName.replace(/\s+/g, '').length) { err(); }
   };
 
-  const emailValidator = (err) => {
-    if(!/^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(?:\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*(?:aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$/.test(this.email)) { err(); }
-  };
+  // const emailValidator = (err) => {
+  //   if(!/^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(?:\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*(?:aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$/.test(this.email)) { err(); }
+  // };
 
-  // User.validate('firstName', userNameValidator, {message: 'Bad first name'});
+  User.validate('firstName', userNameValidator, {message: 'Bad first name'});
   // User.validate('email', emailValidator, {message: 'Bad email'});
 
   // hooks
-  User.beforeSave = async function (next) {
+  User.beforeCreate = async function (next) {
     if (this.password) {
       const salt = bcrypt.genSaltSync(10);
       this.password = await bcrypt.hash(this.password, salt)

@@ -8,7 +8,7 @@ module.exports = {
       target: {},
       type: 'get',
       options: {
-        url: 'http://staging.mystrengthbook.com'
+        value: 'http://staging.mystrengthbook.com'
       }
     },
     {
@@ -54,7 +54,7 @@ module.exports = {
         type: 'css',
         value: 'body'
       },
-      type: 'elementTextNotContains',
+      type: 'textNotContains',
       options: {
         value: 'Calendar'
       }
@@ -66,7 +66,7 @@ module.exports = {
         type: 'css',
         value: 'body'
       },
-      type: 'elementTextContains',
+      type: 'textContains',
       options: {
         value: 'Calendar'
       }

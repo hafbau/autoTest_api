@@ -34,16 +34,38 @@ module.exports = ({ userModel }, render) => {
     postLogin: async (ctx) => {
       const { request: { body }, res } = ctx;
       try {
-        const user = await User.authenticate(body);
-        delete user.password;
+        const {
+          id,
+          avatarSource,
+          createdAt,
+          email,
+          firstName,
+          lastActive,
+          lastName,
+          loggedIn,
+          meta,
+          updatedAt
+        } = await User.authenticate(body);
+
+        const user = {
+          id,
+          avatarSource,
+          createdAt,
+          email,
+          firstName,
+          lastActive,
+          lastName,
+          loggedIn,
+          meta,
+          updatedAt
+        }
 
         const token = jwt.sign({
-          userId: user._id,
+          userId: user.id,
           lastActive: user.lastActive },
           process.env.SECRET
         );
         ctx.status = 200;
-
         ctx.body = {
           success: true,
           token,
@@ -63,26 +85,48 @@ module.exports = ({ userModel }, render) => {
     postRegister: async (ctx) => {
       const { request: { body }, res } = ctx;
       try {
-        const user = await User.create(body).catch(err => console.log("ERR", err));
-        delete user.password;
+        const {
+          id,
+          avatarSource,
+          createdAt,
+          email,
+          firstName,
+          lastActive,
+          lastName,
+          loggedIn,
+          meta,
+          updatedAt
+        } = await User.create(body);
+        const user = {
+          id,
+          avatarSource,
+          createdAt,
+          email,
+          firstName,
+          lastActive,
+          lastName,
+          loggedIn,
+          meta,
+          updatedAt
+        }
         
         const token = jwt.sign({
-          userId: user._id,
+          userId: user.id,
           lastActive: user.lastActive },
           process.env.SECRET
         );
         ctx.status = 200;
-        delete user.password;
 
-        ctx.body = {
+        return ctx.body = {
           success: true,
           token,
           user
         };
       }
       catch (err) {
+        console.log("got error in post register", err)
         ctx.status = 403;
-        ctx.body = {
+        return ctx.body = {
           error: err,
           message: 'User registration failed',
           success: false,

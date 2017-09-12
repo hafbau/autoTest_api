@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "blaykAPI",
   "version": "1.0.0",
   "description": "",
   "main": "serverModule.js",
@@ -17,6 +17,7 @@
     "chromedriver": "^2.31.0",
     "dotenv": "^4.0.0",
     "jsonwebtoken": "^7.4.1",
+    "kcors": "^2.2.1",
     "koa": "^2.3.0",
     "koa-body": "^2.3.0",
     "koa-router": "^7.2.1",
@@ -37,5 +38,29 @@
     "mocha": "^3.5.0",
     "nodemon": "^1.11.0",
     "zombie": "^5.0.7"
+  }, 
+  
+  "apps": [
+    {
+      "name": "blaykAPI",
+      "script": "npm",
+      "args": "start",
+      "env": {
+        "COMMON_ENV_VAR": "true"
+      },
+      "env_production": {
+        "NODE_ENV": "production"
+      }
+    }
+  ],
+  "deploy": {
+    "production": {
+      "user": "sb",
+      "host": "159.203.14.114",
+      "ref": "origin/master",
+      "repo": "git@github.com:hafbau/autoTest_api.git",
+      "path": "/home/sb/blaykAPI",
+      "post-deploy": "npm install --production && pm2 startOrRestart package.json -env production"
+    }
   }
 }
