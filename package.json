@@ -58,7 +58,7 @@
       "ref": "origin/master",
       "repo": "git@github.com:hafbau/autoTest_api.git",
       "path": "/home/sb/blaykAPI",
-      "post-deploy": "npm install && pm2 restart --name 'blaykAPI' node -- ./index.js"
+      "post-deploy": "npm install && pm2 restart --name 'blaykAPI' ./index.js"
     }
   }
 }
