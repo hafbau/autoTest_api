@@ -43,7 +43,8 @@
   "apps": [
     {
       "name": "blaykAPI",
-      "script": "node index.js",
+      "script": "npm",
+      "args": "start",
       "env": {
         "COMMON_ENV_VAR": "true"
       },
