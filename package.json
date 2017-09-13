@@ -43,8 +43,6 @@
   "apps": [
     {
       "name": "blaykAPI",
-      "script": "npm",
-      "args": "start",
       "env": {
         "COMMON_ENV_VAR": "true"
       },
@@ -60,7 +58,7 @@
       "ref": "origin/master",
       "repo": "git@github.com:hafbau/autoTest_api.git",
       "path": "/home/sb/blaykAPI",
-      "post-deploy": "npm install && pm2 startOrGracefulReload package.json -env production"
+      "post-deploy": "npm install && pm2 restart --name 'blaykAPI' npm -- start"
     }
   }
 }
